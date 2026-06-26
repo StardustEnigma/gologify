@@ -24,17 +24,17 @@ type Result struct {
 
 // NumericStat holds min/max/avg/sum for a numeric field.
 type NumericStat struct {
-	Count int
-	Min   float64
-	Max   float64
-	Sum   float64
-	Avg   float64
+	Count int     `json:"count"`
+	Min   float64 `json:"min"`
+	Max   float64 `json:"max"`
+	Sum   float64 `json:"sum"`
+	Avg   float64 `json:"avg"`
 }
 
 // TopEntry holds a value and its count for top-N displays.
 type TopEntry struct {
-	Value string
-	Count int
+	Value string `json:"value"`
+	Count int    `json:"count"`
 }
 
 // Aggregator accumulates statistics as log entries stream through.

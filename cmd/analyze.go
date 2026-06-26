@@ -135,7 +135,7 @@ func runAnalyze(cmd *cobra.Command, args []string) error {
 	}
 
 	// Start parsing.
-	p := parser.NewParser(format)
+	p := parser.NewConcurrentParser(format, workers)
 	entries, errs := p.Parse(reader)
 
 	// Drain parse errors in background.

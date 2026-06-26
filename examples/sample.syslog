@@ -1,0 +1,15 @@
+Jan 15 08:23:01 web-server-01 api-gateway[1234]: Application started successfully
+Jan 15 08:23:02 web-server-01 api-gateway[1234]: Loading configuration from /etc/app/config.yaml
+Jan 15 08:23:03 web-server-01 api-gateway[1234]: HTTP server listening on :8080
+Jan 15 08:23:15 web-server-01 api-gateway[1234]: GET /api/health - 200 OK (2ms)
+Jan 15 08:24:01 web-server-01 api-gateway[1234]: High memory usage detected: 85%
+Jan 15 08:24:30 web-server-01 api-gateway[1234]: POST /api/users - 201 Created (45ms)
+Jan 15 08:25:12 web-server-01 cache-service[2345]: Failed to connect to Redis: connection refused
+Jan 15 08:25:45 web-server-01 api-gateway[1234]: GET /api/users/42 - 200 OK (12ms)
+Jan 15 08:26:30 db-server-01 postgres[3456]: query timeout after 30s: SELECT * FROM orders
+Jan 15 08:26:30 web-server-01 api-gateway[1234]: Returning 500 Internal Server Error to client
+Jan 15 08:27:00 web-server-01 scheduler[4567]: Scheduled job cleanup_sessions started
+Jan 15 08:27:05 web-server-01 scheduler[4567]: Cleaned up 1247 expired sessions
+Jan 15 08:28:10 web-server-01 api-gateway[1234]: Rate limit exceeded for IP 10.0.0.55
+Jan 15 08:30:15 web-server-01 api-gateway[1234]: TLS handshake failed: certificate expired
+Jan 15 08:30:45 web-server-01 api-gateway[1234]: Out of memory: cannot allocate 512MB
