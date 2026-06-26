@@ -85,7 +85,7 @@ func (f *TableFormatter) FormatEntries(entries []parser.LogEntry) {
 			msg = msg[:117] + "..."
 		}
 
-		table.Append([]string{
+		_ = table.Append([]string{
 			fmt.Sprintf("%d", entry.LineNum),
 			ts,
 			level,
@@ -94,7 +94,7 @@ func (f *TableFormatter) FormatEntries(entries []parser.LogEntry) {
 		})
 	}
 
-	table.Render()
+	_ = table.Render()
 }
 
 // FormatResult writes aggregation results as formatted tables.
@@ -143,9 +143,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 				barLen = 1
 			}
 			bar := strings.Repeat("█", barLen)
-			table.Append([]string{colorLevel(level), fmt.Sprintf("%d", count), bar})
+			_ = table.Append([]string{colorLevel(level), fmt.Sprintf("%d", count), bar})
 		}
-		table.Render()
+		_ = table.Render()
 	}
 
 	// Group-by results.
@@ -159,9 +159,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 
 		sorted := sortedByCount(counts)
 		for _, e := range sorted {
-			table.Append([]string{e.Value, fmt.Sprintf("%d", e.Count)})
+			_ = table.Append([]string{e.Value, fmt.Sprintf("%d", e.Count)})
 		}
-		table.Render()
+		_ = table.Render()
 	}
 
 	// Top N entries (IPs).
@@ -174,9 +174,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 		table.Header([]string{"Rank", "IP", "Requests"})
 
 		for i, e := range result.TopN {
-			table.Append([]string{fmt.Sprintf("%d", i+1), e.Value, fmt.Sprintf("%d", e.Count)})
+			_ = table.Append([]string{fmt.Sprintf("%d", i+1), e.Value, fmt.Sprintf("%d", e.Count)})
 		}
-		table.Render()
+		_ = table.Render()
 	}
 
 	// Top errors.
@@ -193,9 +193,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 			if len(msg) > 80 {
 				msg = msg[:77] + "..."
 			}
-			table.Append([]string{fmt.Sprintf("%d", i+1), msg, fmt.Sprintf("%d", e.Count)})
+			_ = table.Append([]string{fmt.Sprintf("%d", i+1), msg, fmt.Sprintf("%d", e.Count)})
 		}
-		table.Render()
+		_ = table.Render()
 	}
 
 	// Numeric stats.
@@ -215,7 +215,7 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 
 		for _, field := range fields {
 			stat := result.NumericStats[field]
-			table.Append([]string{
+			_ = table.Append([]string{
 				field,
 				fmt.Sprintf("%d", stat.Count),
 				fmt.Sprintf("%.2f", stat.Min),
@@ -224,7 +224,7 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 				fmt.Sprintf("%.2f", stat.Sum),
 			})
 		}
-		table.Render()
+		_ = table.Render()
 	}
 
 	fmt.Fprintln(f.writer)

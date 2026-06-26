@@ -84,7 +84,9 @@ func (f *CSVFormatter) FormatResult(result aggregator.Result, topErrors []aggreg
 				return err
 			}
 		}
-		f.csvWriter.Write([]string{}) // blank line separator
+		if err := f.csvWriter.Write([]string{}); err != nil {
+			return err
+		} // blank line separator
 	}
 
 	// Group counts.
@@ -97,7 +99,9 @@ func (f *CSVFormatter) FormatResult(result aggregator.Result, topErrors []aggreg
 				return err
 			}
 		}
-		f.csvWriter.Write([]string{})
+		if err := f.csvWriter.Write([]string{}); err != nil {
+			return err
+		}
 	}
 
 	// Top IPs.
@@ -110,7 +114,9 @@ func (f *CSVFormatter) FormatResult(result aggregator.Result, topErrors []aggreg
 				return err
 			}
 		}
-		f.csvWriter.Write([]string{})
+		if err := f.csvWriter.Write([]string{}); err != nil {
+			return err
+		}
 	}
 
 	// Top errors.

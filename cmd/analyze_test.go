@@ -38,7 +38,7 @@ func captureStdout(t *testing.T) func() string {
 	var buf bytes.Buffer
 	done := make(chan struct{})
 	go func() {
-		buf.ReadFrom(r)
+		_, _ = buf.ReadFrom(r)
 		close(done)
 	}()
 

@@ -86,7 +86,9 @@ func TestJSONFormatter_OmitsZeroTimestamp(t *testing.T) {
 	}
 
 	var result map[string]interface{}
-	json.Unmarshal(buf.Bytes(), &result)
+	if err := json.Unmarshal(buf.Bytes(), &result); err != nil {
+		t.Fatal(err)
+	}
 
 	if _, exists := result["timestamp"]; exists {
 		t.Error("expected timestamp to be omitted for zero time")
@@ -103,7 +105,9 @@ func TestJSONFormatter_OmitsEmptyFields(t *testing.T) {
 	}
 
 	var result map[string]interface{}
-	json.Unmarshal(buf.Bytes(), &result)
+	if err := json.Unmarshal(buf.Bytes(), &result); err != nil {
+		t.Fatal(err)
+	}
 
 	if _, exists := result["fields"]; exists {
 		t.Error("expected fields to be omitted when empty")
