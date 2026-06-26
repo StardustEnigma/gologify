@@ -85,7 +85,11 @@ func runAnalyze(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("cannot open file: %w", err)
 	}
-	defer file.Close()
+	defer func() {
+		if err := file.Close(); err != nil {
+			fmt.Fprintf(os.Stderr, "close file: %v\n", err)
+		}
+	}()
 
 	info, err := file.Stat()
 	if err != nil {

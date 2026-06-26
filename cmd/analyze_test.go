@@ -43,7 +43,9 @@ func captureStdout(t *testing.T) func() string {
 	}()
 
 	return func() string {
-		w.Close()
+		if err := w.Close(); err != nil {
+			t.Fatalf("close writer: %v", err)
+		}
 		os.Stdout = old
 		<-done
 		return buf.String()

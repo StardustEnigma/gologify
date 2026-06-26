@@ -65,7 +65,7 @@ func newMinimalTable(w io.Writer) *tablewriter.Table {
 // FormatEntries writes log entries as a formatted table.
 func (f *TableFormatter) FormatEntries(entries []parser.LogEntry) {
 	if len(entries) == 0 {
-		fmt.Fprintln(f.writer, "No entries to display.")
+		_, _ = fmt.Fprintln(f.writer, "No entries to display.")
 		return
 	}
 
@@ -100,26 +100,26 @@ func (f *TableFormatter) FormatEntries(entries []parser.LogEntry) {
 // FormatResult writes aggregation results as formatted tables.
 func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggregator.TopEntry) {
 	// Summary section.
-	fmt.Fprintln(f.writer)
+	_, _ = fmt.Fprintln(f.writer)
 	headerColor := color.New(color.FgCyan, color.Bold)
-	headerColor.Fprintln(f.writer, "═══ Log Analysis Summary ═══")
-	fmt.Fprintln(f.writer)
+	_, _ = headerColor.Fprintln(f.writer, "═══ Log Analysis Summary ═══")
+	_, _ = fmt.Fprintln(f.writer)
 
-	fmt.Fprintf(f.writer, "  %s %d\n", color.CyanString("Matched Entries:"), result.MatchedEntries)
+	_, _ = fmt.Fprintf(f.writer, "  %s %d\n", color.CyanString("Matched Entries:"), result.MatchedEntries)
 	if result.TotalEntries > 0 {
-		fmt.Fprintf(f.writer, "  %s %d\n", color.CyanString("Total Entries:  "), result.TotalEntries)
+		_, _ = fmt.Fprintf(f.writer, "  %s %d\n", color.CyanString("Total Entries:  "), result.TotalEntries)
 	}
 	if result.FirstTimestamp != "" {
-		fmt.Fprintf(f.writer, "  %s %s → %s\n",
+		_, _ = fmt.Fprintf(f.writer, "  %s %s → %s\n",
 			color.CyanString("Time Range:     "),
 			result.FirstTimestamp, result.LastTimestamp)
 	}
 
 	// Level distribution.
 	if len(result.LevelCounts) > 0 {
-		fmt.Fprintln(f.writer)
-		headerColor.Fprintln(f.writer, "─── Level Distribution ───")
-		fmt.Fprintln(f.writer)
+		_, _ = fmt.Fprintln(f.writer)
+		_, _ = headerColor.Fprintln(f.writer, "─── Level Distribution ───")
+		_, _ = fmt.Fprintln(f.writer)
 
 		table := newMinimalTable(f.writer)
 		table.Header([]string{"Level", "Count", "Bar"})
@@ -150,9 +150,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 
 	// Group-by results.
 	for field, counts := range result.GroupCounts {
-		fmt.Fprintln(f.writer)
-		headerColor.Fprintf(f.writer, "─── Grouped by: %s ───\n", field)
-		fmt.Fprintln(f.writer)
+		_, _ = fmt.Fprintln(f.writer)
+		_, _ = headerColor.Fprintf(f.writer, "─── Grouped by: %s ───\n", field)
+		_, _ = fmt.Fprintln(f.writer)
 
 		table := newMinimalTable(f.writer)
 		table.Header([]string{tw.Title(field), "Count"})
@@ -166,9 +166,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 
 	// Top N entries (IPs).
 	if len(result.TopN) > 0 {
-		fmt.Fprintln(f.writer)
-		headerColor.Fprintln(f.writer, "─── Top IPs ───")
-		fmt.Fprintln(f.writer)
+		_, _ = fmt.Fprintln(f.writer)
+		_, _ = headerColor.Fprintln(f.writer, "─── Top IPs ───")
+		_, _ = fmt.Fprintln(f.writer)
 
 		table := newMinimalTable(f.writer)
 		table.Header([]string{"Rank", "IP", "Requests"})
@@ -181,9 +181,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 
 	// Top errors.
 	if len(topErrors) > 0 {
-		fmt.Fprintln(f.writer)
-		headerColor.Fprintln(f.writer, "─── Top Errors ───")
-		fmt.Fprintln(f.writer)
+		_, _ = fmt.Fprintln(f.writer)
+		_, _ = headerColor.Fprintln(f.writer, "─── Top Errors ───")
+		_, _ = fmt.Fprintln(f.writer)
 
 		table := newMinimalTable(f.writer)
 		table.Header([]string{"Rank", "Error", "Count"})
@@ -200,9 +200,9 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 
 	// Numeric stats.
 	if len(result.NumericStats) > 0 {
-		fmt.Fprintln(f.writer)
-		headerColor.Fprintln(f.writer, "─── Numeric Fields ───")
-		fmt.Fprintln(f.writer)
+		_, _ = fmt.Fprintln(f.writer)
+		_, _ = headerColor.Fprintln(f.writer, "─── Numeric Fields ───")
+		_, _ = fmt.Fprintln(f.writer)
 
 		table := newMinimalTable(f.writer)
 		table.Header([]string{"Field", "Count", "Min", "Max", "Avg", "Sum"})
@@ -227,7 +227,7 @@ func (f *TableFormatter) FormatResult(result aggregator.Result, topErrors []aggr
 		_ = table.Render()
 	}
 
-	fmt.Fprintln(f.writer)
+	_, _ = fmt.Fprintln(f.writer)
 }
 
 // colorLevel returns a color-coded level string for terminal display.

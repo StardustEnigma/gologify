@@ -65,7 +65,11 @@ func runExport(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("cannot open input file: %w", err)
 	}
-	defer inFile.Close()
+	defer func() {
+		if err := inFile.Close(); err != nil {
+			fmt.Fprintf(os.Stderr, "close input file: %v\n", err)
+		}
+	}()
 
 	info, err := inFile.Stat()
 	if err != nil {
@@ -83,7 +87,11 @@ func runExport(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("cannot create output file: %w", err)
 	}
-	defer outFile.Close()
+	defer func() {
+		if err := outFile.Close(); err != nil {
+			fmt.Fprintf(os.Stderr, "close output file: %v\n", err)
+		}
+	}()
 
 	// Determine log format.
 	format, err := parser.ParseFormat(exportLogFormat)

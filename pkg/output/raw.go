@@ -47,7 +47,7 @@ func (f *RawFormatter) FormatEntry(entry parser.LogEntry) {
 			return f.highlightFn(match)
 		})
 	}
-	fmt.Fprintln(f.writer, line)
+	_, _ = fmt.Fprintln(f.writer, line)
 }
 
 // FormatEntries writes multiple raw log lines.
